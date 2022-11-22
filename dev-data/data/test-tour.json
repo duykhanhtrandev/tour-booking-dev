@@ -1,0 +1,138 @@
+[
+  {
+    "startLocation": {
+      "description": "Hà Nội, Việt Nam",
+      "type": "Point",
+      "coordinates": [
+        21.028509303437097,
+        105.7782721013105
+      ],
+      "address": "Bến xe Mỹ Đình, Quận Nam Từ Liêm, Việt Nam"
+    },
+    "ratingsAverage": 4.8,
+    "ratingsQuantity": 6,
+    "images": [
+      "tour-2-1.jpg",
+      "tour-2-2.jpg",
+      "tour-2-3.jpg"
+    ],
+    "startDates": [
+      "2022-06-19T09:00:00.000Z",
+      "2022-07-20T09:00:00.000Z",
+      "2022-08-18T09:00:00.000Z"
+    ],
+    "_id": "5c88fa8cf4afda39709c2955",
+    "name": "Tham quan du lịch Tây Bắc",
+    "duration": 7,
+    "maxGroupSize": 15,
+    "difficulty": "medium",
+    "guides": [
+      "5c8a22c62f8fb814b56fa18b",
+      "5c8a1f4e2f8fb814b56fa185"
+    ],
+    "price": 497,
+    "summary": "",
+    "description": "",
+    "imageCover": "tour-2-cover.jpg",
+    "locations": [
+      {
+        "_id": "5c88fa8cf4afda39709c2958",
+        "description": "Mộc Châu",
+        "type": "Point",
+        "coordinates": [
+          20.890981740810695,
+          104.68645464113393
+        ],
+        "day": 2
+      },
+      {
+        "_id": "5c88fa8cf4afda39709c2957",
+        "description": "Đèo Pha Đin",
+        "type": "Point",
+        "coordinates": [
+          21.56565433537611,
+          103.52750596923002
+        ],
+        "day": 3
+      },
+      {
+        "_id": "5c88fa8cf4afda39709c2956",
+        "description": "Điện Biên",
+        "type": "Point",
+        "coordinates": [
+          21.406354123029782,
+          103.03203235253858
+        ],
+        "day": 5
+      }
+    ]
+  },
+  {
+    "startLocation": {
+      "description": "Hà Nội, Việt Nam",
+      "type": "Point",
+      "coordinates": [
+        21.028509303437097,
+        105.7782721013105
+      ],
+      "address": "Bến xe Mỹ Đình, Quận Nam Từ Liêm, Việt Nam"
+    },
+    "ratingsAverage": 4.8,
+    "ratingsQuantity": 6,
+    "images": [
+      "tour-2-1.jpg",
+      "tour-2-2.jpg",
+      "tour-2-3.jpg"
+    ],
+    "startDates": [
+      "2022-06-19T09:00:00.000Z",
+      "2022-07-20T09:00:00.000Z",
+      "2022-08-18T09:00:00.000Z"
+    ],
+    "_id": "5c88fa8cf4afda39709c2955",
+    "name": "Tham quan du lịch Tây Bắc",
+    "duration": 7,
+    "maxGroupSize": 15,
+    "difficulty": "medium",
+    "guides": [
+      "5c8a22c62f8fb814b56fa18b",
+      "5c8a1f4e2f8fb814b56fa185"
+    ],
+    "price": 497,
+    "summary": "Đến với Tour du lịch Tây Bắc, du khách sẽ được hòa mình vào thiên nhiên Tây Bắc đẹp nên thơ, hữu tình.",
+    "description": "Du lịch Tây Bắc - Tây Bắc nổi tiếng với cảnh quan thiên nhiên kỳ vĩ, nền văn hóa đặc sắc và lịch sử hào hùng trong thời kỳ kháng chiến dân tộc. Đến với Tour du lịch Tây Bắc, du khách sẽ được hòa mình vào thiên nhiên Tây Bắc đẹp nên thơ, hữu tình. Mùa Xuân khi mà hoa Mơ, hoa Mận nở trắng một vùng trời Tây Bắc thì hoa Đào, hoa Tam Giác Mạch lại đem về một hương sắc thật tươi mới, mộng mơ.",
+    "imageCover": "tour-2-cover.jpg",
+    "locations": [
+      {
+        "_id": "5c88fa8cf4afda39709c2958",
+        "description": "Mộc Châu",
+        "type": "Point",
+        "coordinates": [
+          20.890981740810695,
+          104.68645464113393
+        ],
+        "day": 2
+      },
+      {
+        "_id": "5c88fa8cf4afda39709c2957",
+        "description": "Đèo Pha Đin",
+        "type": "Point",
+        "coordinates": [
+          21.56565433537611,
+          103.52750596923002
+        ],
+        "day": 3
+      },
+      {
+        "_id": "5c88fa8cf4afda39709c2956",
+        "description": "Điện Biên",
+        "type": "Point",
+        "coordinates": [
+          21.406354123029782,
+          103.03203235253858
+        ],
+        "day": 5
+      }
+    ]
+  }
+]
