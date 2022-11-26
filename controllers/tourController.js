@@ -1,28 +1,39 @@
 const Tour = require('./../models/tourModel');
 
-const getAllTours = (req, res) => {
-  console.log(req.requestTime);
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime
-    // result: tours.length,
-    // data: {
-    //   tours
-    // }
-  });
+const getAllTours = async (req, res) => {
+  try {
+    const tours = await Tour.find();
+    res.status(200).json({
+      status: 'success',
+      result: tours.length,
+      data: {
+        tours
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
 
-const getTour = (req, res) => {
-  console.log(req.params);
-  const id = req.params.id * 1;
-  // const tour = tours.find(el => el.id === id);
-
-  // res.status(200).json({
-  //   status: 'success',
-  //   data: {
-  //     tour
-  //   }
-  // });
+const getTour = async (req, res) => {
+  try {
+    const tour = await Tour.findById(req.params.id);
+    // Tour.findOne({ _id: req.params.id })
+    res.status(200).json({
+      status: 'success',
+      data: {
+        tour
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
 
 const createTour = async (req, res) => {
@@ -44,13 +55,25 @@ const createTour = async (req, res) => {
   }
 };
 
-const updateTour = (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour: '<Update tour here...>'
-    }
-  });
+const updateTour = async (req, res) => {
+  try {
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        tour
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
 };
 
 const deleteTour = (req, res) => {
