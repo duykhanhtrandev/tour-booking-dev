@@ -128,7 +128,7 @@ const getTourStats = async (req, res) => {
         $sort: { avgPrice: 1 }
       }
       // {
-      //   $match: {_id: {$ne: 'DỄ DÀNG'}}
+      //   $match: {_id: {$ne: 'THÔNG THƯỜNG'}}
       // }
     ]);
     res.status(200).json({
