@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -10,6 +11,7 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       maxlength: [40, 'Tên chuyến tham quan phải ngắn hơn hoặc bằng 40 ký tự'],
       minlength: [10, 'Tên chuyến tham quan phải dài hơn hoặc bằng 10 ký tự']
+      // validate: [validator.isAlpha, 'Tên chuyến tham quan chỉ được chứa ký tự']
     },
     slug: String,
     duration: {
@@ -42,7 +44,16 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       required: [true, 'Chuyến tham quam cần giá tiền']
     },
-    priceDiscount: Number,
+    priceDiscount: {
+      type: Number,
+      validate: {
+        validator: function(val) {
+          // this only points to current doc on NEW document creation
+          return val < this.price;
+        },
+        message: 'Giá giảm ({VALUE}) phải thấp hơn giá gốc'
+      }
+    },
     summary: {
       type: String,
       trim: true,
