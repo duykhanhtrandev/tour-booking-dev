@@ -7,7 +7,9 @@ const tourSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Chuyến tham quan cần một cái tên'],
       unique: true,
-      trim: true
+      trim: true,
+      maxlength: [40, 'Tên chuyến tham quan phải ngắn hơn hoặc bằng 40 ký tự'],
+      minlength: [10, 'Tên chuyến tham quan phải dài hơn hoặc bằng 10 ký tự']
     },
     slug: String,
     duration: {
@@ -20,11 +22,17 @@ const tourSchema = new mongoose.Schema(
     },
     difficulty: {
       type: String,
-      required: [true, 'Mức độ khó của chuyến tham quan']
+      required: [true, 'Mức độ khó của chuyến tham quan'],
+      enum: {
+        values: ['thông thường', 'trải nghiệm', 'khám phá'],
+        message: 'Kiểu tham quan phải là: thông thường, trải nghiệm, khám phá'
+      }
     },
     ratingsAverage: {
       type: Number,
-      default: 4.5
+      default: 4.5,
+      min: [1, 'Xếp hạng phải trên 1.0'],
+      max: [5, 'Xếp hạng phải dưới 5.0']
     },
     ratingsQuantity: {
       type: Number,
