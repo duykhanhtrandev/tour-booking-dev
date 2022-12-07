@@ -1,3 +1,17 @@
+const AppError = require('./../utils/appError');
+
+const handleCastErrorDB = err => {
+  const message = `Invalid ${err.path}: ${err.value}`;
+  return new AppError(message, 400);
+};
+
+const handleDuplicateFieldsDB = err => {
+  // const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0];
+  const value = Object.values(err.keyValue)[0];
+  const message = `Giá trị trường đã trùng lặp: "${value}". Vui lòng sử dụng giá trị khác!`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -36,6 +50,12 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    sendErrorProd(err, res);
+    // let error = { ...err };
+    let error = Object.assign(err);
+
+    if (error.name === 'CastError') error = handleCastErrorDB(error);
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+
+    sendErrorProd(error, res);
   }
 };
