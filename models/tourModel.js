@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const slugify = require('slugify');
+const User = require('./userModel');
 // const validator = require('validator');
 
 const tourSchema = new mongoose.Schema(
@@ -9,7 +10,10 @@ const tourSchema = new mongoose.Schema(
       required: [true, 'Chuyến tham quan cần một cái tên'],
       unique: true,
       trim: true,
-      maxlength: [40, 'Tên chuyến tham quan phải ngắn hơn hoặc bằng 40 ký tự'],
+      maxlength: [
+        100,
+        'Tên chuyến tham quan phải ngắn hơn hoặc bằng 100 ký tự'
+      ],
       minlength: [10, 'Tên chuyến tham quan phải dài hơn hoặc bằng 10 ký tự']
       // validate: [validator.isAlpha, 'Tên chuyến tham quan chỉ được chứa ký tự']
     },
@@ -101,7 +105,8 @@ const tourSchema = new mongoose.Schema(
         description: String,
         day: Number
       }
-    ]
+    ],
+    guides: Array
   },
   {
     toJSON: { virtuals: true },
@@ -116,6 +121,12 @@ tourSchema.virtual('durationWeeks').get(function() {
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 tourSchema.pre('save', function(next) {
   this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+tourSchema.pre('save', async function(next) {
+  const guidesPromises = this.guides.map(async id => await User.findById(id));
+  this.guides = await Promise.all(guidesPromises);
   next();
 });
 
