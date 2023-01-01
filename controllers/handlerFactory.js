@@ -15,4 +15,34 @@ const deleteOne = Model =>
     });
   });
 
-module.exports = { deleteOne };
+const updateOne = Model =>
+  catchAsync(async (req, res, next) => {
+    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!doc) {
+      return next(new AppError('Không tìm thấy document nào có ID này', 404));
+    }
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        data: doc
+      }
+    });
+  });
+
+const createOne = Model =>
+  catchAsync(async (req, res, next) => {
+    const doc = await Model.create(req.body);
+    res.status(201).json({
+      status: 'success',
+      data: {
+        data: doc
+      }
+    });
+  });
+
+module.exports = { deleteOne, updateOne, createOne };
