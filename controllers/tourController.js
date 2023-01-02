@@ -1,8 +1,7 @@
 const Tour = require('./../models/tourModel');
-const APIFeatures = require('./../utils/apiFeatures');
 const catchAsync = require('./../utils/catchAsync');
-const AppError = require('./../utils/appError');
 const factory = require('./handlerFactory');
+// const AppError = require('./../utils/appError');
 
 const aliasTopTours = async (req, res, next) => {
   req.query.limit = '5';
@@ -11,56 +10,11 @@ const aliasTopTours = async (req, res, next) => {
   next();
 };
 
-const getAllTours = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Tour.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  const tours = await features.query;
-
-  // SEND RESPONSE
-  res.status(200).json({
-    status: 'success',
-    results: tours.length,
-    data: {
-      tours
-    }
-  });
-});
-
-const getTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findById(req.params.id).populate('reviews');
-  // Tour.findOne({ _id: req.params.id })
-
-  if (!tour) {
-    return next(new AppError('Không tìm thấy tour nào có ID này', 404));
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour
-    }
-  });
-});
-
+const getAllTours = factory.getAll(Tour);
+const getTour = factory.getOne(Tour, { path: 'reviews' });
 const createTour = factory.createOne(Tour);
 const updateTour = factory.updateOne(Tour);
 const deleteTour = factory.deleteOne(Tour);
-
-// const deleteTour = catchAsync(async (req, res, next) => {
-//   const tour = await Tour.findByIdAndDelete(req.params.id);
-
-//   if (!tour) {
-//     return next(new AppError('Không tìm thấy tour nào có ID này', 404));
-//   }
-
-//   res.status(204).json({
-//     status: 'success',
-//     data: null
-//   });
-// });
 
 const getTourStats = catchAsync(async (req, res, next) => {
   const stats = await Tour.aggregate([
