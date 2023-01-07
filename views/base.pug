@@ -1,15 +1,40 @@
 doctype html
 html
     head
-        title Tour Booking | #{tour}
-        link(rel="stylesheet" href="css/style.css")
-        link(rel="shortcut icon" type='image/png' href="img/favicon.png")
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        link(rel='stylesheet' href='css/style.css')
+        link(rel='shortcut icon' type='image/png' href='img/favicon.png')
+        link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Muli&display=swap')
+        title Tour Booking | Những chuyến du lịch thú vị cho người ưa mạo hiểm
 
     body
-        h1= tour
-        h2= user.toUpperCase()
-        //- h1 The Park Camper
+        //- HEADER
+        header.header
+            nav.nav.nav--tours
+               a.nav__el(href='#') Chuyến tham quan của tôi
+            .header__logo
+                img(src='img/logo-white.png' alt='Tour Booking logo')
+            nav.nav.nav--user
+                //- a.nav__el(href='#') Đơn hàng
+                //- a.nav__el(href='#')
+                //-     img.nav__user-img(src='img/user.jpg' alt='User photo')
+                //-     span Trần Duy Khánh
+                button.nav__el Đăng Nhập
+                button.nav__el.nav__el--cta Đăng Ký
 
-        - const x = 9;
-        h2= 2 * x
-        p This is just some
+        //- CONTENT
+        section.overview
+            h1= tour
+
+        //- FOOTER
+        footer.footer
+            .footer__logo
+                img(src='img/logo-green.png' alt='Tour Booking')
+            ul.footer__nav
+                li: a(href='#') Về chúng tôi
+                li: a(href='#') Download apps
+                li: a(href='#') Trở thành hướng dẫn viên của chúng tôi
+                li: a(href='#') Sự nghiệp
+                li: a(href='#') Liên hệ
+            p.footer__copyright &copy; Bản quyền thuộc về Trần Duy Khánh 18CN2. Vui lòng chỉ sử dụng dự án này cho các mục đích riêng tư!

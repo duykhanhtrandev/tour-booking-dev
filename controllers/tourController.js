@@ -104,7 +104,7 @@ const getToursWithin = catchAsync(async (req, res, next) => {
   if (!lat || !lng) {
     next(
       new AppError(
-        'Please provide latitutr and longitude in the format lat,lng.',
+        'Vui lòng cung cấp vĩ độ và kinh độ ở định dạng lat,lng.',
         400
       )
     );
@@ -132,7 +132,7 @@ const getDistances = catchAsync(async (req, res, next) => {
   if (!lat || !lng) {
     next(
       new AppError(
-        'Please provide latitutr and longitude in the format lat,lng.',
+        'Vui lòng cung cấp vĩ độ và kinh độ ở định dạng lat,lng.',
         400
       )
     );
