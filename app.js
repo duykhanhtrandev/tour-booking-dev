@@ -12,6 +12,7 @@ const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
+const viewRouter = require('./routes/viewRoutes');
 
 const app = express();
 
@@ -70,30 +71,11 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTE
-app.get('/', (req, res) => {
-  res.status(200).render('base', {
-    tour: 'Du Lịch Quảng Ninh',
-    user: 'Trần Duy Khánh'
-  });
-});
-
-app.get('/overview', (req, res) => {
-  res.status(200).render('overview', {
-    title: 'Các chuyến tham quan'
-  });
-});
-
-app.get('/tour', (req, res) => {
-  res.status(200).render('tour', {
-    title: 'Du Lịch Quảng Ninh'
-  });
-});
-
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
-// Handling Unhandled Routes
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} in this server!`, 404));
 });
