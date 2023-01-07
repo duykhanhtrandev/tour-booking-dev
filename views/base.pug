@@ -6,15 +6,15 @@ html
         link(rel='stylesheet' href='css/style.css')
         link(rel='shortcut icon' type='image/png' href='img/favicon.png')
         link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Muli&display=swap')
-        title Tour Booking | Những chuyến du lịch thú vị cho người ưa mạo hiểm
+        title Tour Booking | #{title}
 
     body
         //- HEADER
         include _header
 
         //- CONTENT
-        section.overview
-            h1= tour
+        block content
+            h1 Đây là một tiêu đề giữ chỗ
 
         //- FOOTER
         include _footer
