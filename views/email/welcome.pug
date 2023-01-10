@@ -1,0 +1,17 @@
+extends baseEmail
+
+block content
+    p Xin chào! #{firstName},
+    p Chào mừng bạn đến với Tour Booking, chúng tôi rất vui khi có bạn 🎉🙏
+    p Tất cả chúng ta đều là một đại gia đình, vì vậy hãy nhớ tải lên ảnh đại diện của bạn để chúng tôi hiểu bạn hơn một chút!
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+        tbody
+            tr
+                td(align='left')
+                    table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                            tr
+                                td
+                                    a(href=`${url}`, target='_blank') Tải ảnh người dùng lên
+    p Nếu bạn cần bất kỳ trợ giúp nào trong việc đặt tour du lịch tiếp theo, xin vui lòng liên hệ với tôi!
+    p - Trần Duy Khánh, CEO

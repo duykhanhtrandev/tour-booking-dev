@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
-const sendEmail = require('./../utils/email');
+const Email = require('./../utils/email');
 
 const signToken = id => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -37,14 +37,20 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 const signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt,
-    role: req.body.role
-  });
+  const newUser = await User.create(req.body);
+
+  const url = `${req.protocol}://${req.get('host')}/me`;
+  console.log(url);
+  await new Email(newUser, url).sendWelcome();
+
+  // const newUser = await User.create({
+  //   name: req.body.name,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  //   passwordConfirm: req.body.passwordConfirm,
+  //   passwordChangedAt: req.body.passwordChangedAt,
+  //   role: req.body.role
+  // });
 
   createSendToken(newUser, 201, res);
 });
@@ -188,12 +194,12 @@ const forgotPassword = catchAsync(async (req, res, next) => {
   const message = `Bạn quên mật khẩu? Hãy gửi yêu cầu PATCH với mật khẩu mới của bạn và xác nhận mật khẩu tới: ${resetURL}.\nNếu bạn không quên mật khẩu của mình, vui lòng bỏ qua email này`;
 
   try {
-    await sendEmail({
-      email: user.email,
-      subject:
-        'Mã thông báo đặt lại mật khẩu của bạn (có giá trị trong 10 phút)',
-      message
-    });
+    // await sendEmail({
+    //   email: user.email,
+    //   subject:
+    //     'Mã thông báo đặt lại mật khẩu của bạn (có giá trị trong 10 phút)',
+    //   message
+    // });
 
     res.status(200).json({
       status: 'success',

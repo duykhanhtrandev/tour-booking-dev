@@ -49,6 +49,6 @@ module.exports = class Email {
   }
 
   async sendWelcome() {
-    await this.send('Xin chào!', 'Chào mừng đến với gia đình Tour Booking!');
+    await this.send('welcome', 'Chào mừng đến với gia đình Tour Booking!');
   }
 };
