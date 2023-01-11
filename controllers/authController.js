@@ -186,20 +186,12 @@ const forgotPassword = catchAsync(async (req, res, next) => {
   const resetToken = user.createPasswordResetToken();
   await user.save({ validateBeforeSave: false });
 
-  // 3) Send it to user's reset token
-  const resetURL = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/resetPassword/${resetToken}`;
-
-  const message = `Bạn quên mật khẩu? Hãy gửi yêu cầu PATCH với mật khẩu mới của bạn và xác nhận mật khẩu tới: ${resetURL}.\nNếu bạn không quên mật khẩu của mình, vui lòng bỏ qua email này`;
-
+  // 3) Send it to user's email
   try {
-    // await sendEmail({
-    //   email: user.email,
-    //   subject:
-    //     'Mã thông báo đặt lại mật khẩu của bạn (có giá trị trong 10 phút)',
-    //   message
-    // });
+    const resetURL = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/users/resetPassword/${resetToken}`;
+    await new Email(user, resetURL).sendPasswordReset();
 
     res.status(200).json({
       status: 'success',

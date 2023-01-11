@@ -51,4 +51,11 @@ module.exports = class Email {
   async sendWelcome() {
     await this.send('welcome', 'Chào mừng đến với gia đình Tour Booking!');
   }
+
+  async sendPasswordReset() {
+    await this.send(
+      'passwordReset',
+      'Mã thông báo đặt lại mật khẩu của bạn (chỉ có hiệu lực trong 10 phút)'
+    );
+  }
 };
