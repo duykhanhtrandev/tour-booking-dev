@@ -4,6 +4,7 @@ include _reviewCard
 block append head
     script(src='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.js')
     link(href='https://api.mapbox.com/mapbox-gl-js/v0.54.0/mapbox-gl.css' rel='stylesheet')
+    script(src='https://js.stripe.com/v3/')
 
 mixin overviewBox(label, text, icon)
     .overview-box__detail
@@ -85,8 +86,8 @@ block content
         .cta__content
             h2.heading-secondary Bạn còn chờ gì nữa?
             p.cta__text= `${tour.duration} ngày 1 Cuộc phiêu lưu. Kỷ niệm là vô hạn, hãy biến nó thành của bạn ngay hôm nay!`
-
+        
         if user
-            button.btn.btn--green.span-all-rows Đặt chuyến đi ngay nào!
+            button.btn.btn--green.span-all-rows#book-tour(data-tour-id=`${tour.id}`) Đặt chuyến đi ngay nào!
         else
-            a.btn.btn--green.span-all-rows(href="/login") Đăng nhập để đặt hàng
+            a.btn.btn--green.span-all-rows(href='/login') Đăng nhập để đặt hàng

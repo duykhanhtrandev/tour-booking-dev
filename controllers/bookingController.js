@@ -18,14 +18,19 @@ const getCheckoutSession = catchAsync(async (req, res, next) => {
     client_reference_id: req.params.tourId,
     line_items: [
       {
-        name: `${tour.name} Tour`,
-        description: tour.summary,
-        images: [`http://localhost:3000/img/tours/${tour.imageCover}`],
-        amount: tour.price * 100,
-        currency: 'vnđ',
+        price_data: {
+          currency: 'vnd',
+          unit_amount: tour.price,
+          product_data: {
+            name: `Chuyến ${tour.name}`,
+            description: tour.summary,
+            images: [`http://127.0.0.1:3000/img/tours/${tour.imageCover}`]
+          }
+        },
         quantity: 1
       }
-    ]
+    ],
+    mode: 'payment'
   });
 
   // 3) Create session as reponse
