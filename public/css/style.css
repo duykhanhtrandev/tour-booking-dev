@@ -1366,6 +1366,10 @@ body {
     display: none;
   }
 
+  .nav__el:not(:last-child) {
+    margin: 0 1rem 0 0;
+  }
+
   /* Nav */
   .nav__el,
   .nav__el:link,
@@ -1398,6 +1402,14 @@ body {
 
   .side-nav svg {
     display: none;
+  }
+
+  .nav--user {
+    flex: 0 0 52%;
+  }
+
+  .nav__el--cta {
+    padding: 1rem;
   }
 
   /* Card */
