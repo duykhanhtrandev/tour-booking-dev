@@ -1385,7 +1385,7 @@ body {
   }
 
   .nav__el--logout {
-    display: none;
+    color: #ccc;
   }
 
   .nav__el:not(:last-child) {
