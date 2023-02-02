@@ -8853,7 +8853,7 @@ function () {
           stripe = Stripe('pk_test_51MOrxjBVECh5TwhSRAZjRXvCngKGHKdG4OBcnxeqzQtrv46dkAX5wwnmqUxO25RFimIOvURRQAdFxs71xCZfp6mu00QC4PXHnO');
           _context.prev = 1;
           _context.next = 4;
-          return (0, _axios.default)("http://localhost:3000/api/v1/bookings/checkout-session/".concat(tourId));
+          return (0, _axios.default)("/api/v1/bookings/checkout-session/".concat(tourId));
 
         case 4:
           session = _context.sent;
