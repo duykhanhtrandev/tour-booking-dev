@@ -7,9 +7,14 @@ header.header
         if user
             a.nav__el.nav__el--logout Đăng xuất
             a.nav__el(href='/me')
-                img.nav__user-img(src=`/img/users/${user.photo}` alt=`Ảnh của ${user.name}`)
-                //- span= user.name.split(' ')[0]
-                span= user.name
+                if user.photo
+                    img.nav__user-img(src=`/img/users/${user.photo}` alt=`Ảnh của ${user.name}`)
+                else
+                    - const fNameInitial = user.name[0]
+                    - const lNameInitial = user.name.split(' ')[user.name.split(' ').length-1][0]
+                    .avatar-circle 
+                        span.initials= `${fNameInitial}${lNameInitial}`    
+                span= user.name.split(' ').slice(-2).join(' ')
         else
             a.nav__el(href='/login') Đăng Nhập
-            a.nav__el.nav__el--cta Đăng Ký
+            a.nav__el.nav__el--cta(href='/signup') Đăng Ký

@@ -41,6 +41,12 @@ const getLoginForm = (req, res) => {
   });
 };
 
+const getSignUpForm = (req, res) => {
+  res.status(200).render('signup', {
+    title: `Đăng ký tài khoản của bạn`
+  });
+};
+
 const getAccount = (req, res) => {
   res.status(200).render('account', {
     title: 'Tài khoản của bạn'
@@ -84,6 +90,7 @@ module.exports = {
   getOverview,
   getTour,
   getLoginForm,
+  getSignUpForm,
   getAccount,
   getMyTours,
   updateUserData
