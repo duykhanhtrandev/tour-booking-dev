@@ -8337,7 +8337,8 @@ function () {
           _context.next = 3;
           return (0, _axios.default)({
             method: 'POST',
-            url: 'http://localhost:3000/api/v1/users/login',
+            // url: 'http://localhost:3000/api/v1/users/login',
+            url: '/api/v1/users/login',
             data: {
               email: email,
               password: password
@@ -8390,7 +8391,8 @@ function () {
           _context2.next = 3;
           return (0, _axios.default)({
             method: 'GET',
-            url: 'http://localhost:3000/api/v1/users/logout'
+            // url: 'http://localhost:3000/api/v1/users/logout'
+            url: '/api/v1/users/logout'
           });
 
         case 3:
