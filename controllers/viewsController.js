@@ -16,6 +16,15 @@ const getOverview = catchAsync(async (req, res, next) => {
   });
 });
 
+const getUserManagement = catchAsync(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).render('usermanagement', {
+    title: 'Quản lý người dùng',
+    users
+  });
+});
+
 const getTour = catchAsync(async (req, res, next) => {
   // 1) Get the data, for the requested tour (including reviews and guides)
   const tour = await Tour.findOne({ slug: req.params.slug }).populate({
@@ -93,5 +102,6 @@ module.exports = {
   getSignUpForm,
   getAccount,
   getMyTours,
-  updateUserData
+  updateUserData,
+  getUserManagement
 };

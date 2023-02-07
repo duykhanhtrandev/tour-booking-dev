@@ -1,0 +1,206 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  title Quản lý người dùng
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto|Varela+Round')
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+  link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
+  link(rel="stylesheet", href="/css/style.css")
+  link(rel="stylesheet", href="/css/custom.css")
+  script(src='https://code.jquery.com/jquery-3.5.1.min.js')
+  script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+  script.
+    $(document).ready(function(){
+    // Activate tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+    // Select/Deselect checkboxes
+    var checkbox = $('table tbody input[type="checkbox"]');
+    $("#selectAll").click(function(){
+    if(this.checked){
+    checkbox.each(function(){
+    this.checked = true;
+    });
+    } else{
+    checkbox.each(function(){
+    this.checked = false;
+    });
+    }
+    });
+    checkbox.click(function(){
+    if(!this.checked){
+    $("#selectAll").prop("checked", false);
+    }
+    });
+    });
+
+header.header
+    nav.nav.nav--tours
+        a.nav__el(href='/') Trang chủ
+    .header__logo
+        img(src='/img/logo-white.png' alt='Tour Booking logo')
+    nav.nav.nav--user
+        if user
+            a.nav__el(href='/me')
+                if user.photo
+                    img.nav__user-img(src=`/img/users/${user.photo}` alt=`Ảnh của ${user.name}`)
+                else
+                    - const fNameInitial = user.name[0]
+                    - const lNameInitial = user.name.split(' ')[user.name.split(' ').length-1][0]
+                    .avatar-circle 
+                        span.initials= `${fNameInitial}${lNameInitial}`    
+                span= user.name.split(' ').slice(-2).join(' ')
+            a.nav__el.nav__el--logout Đăng xuất
+        else
+            a.nav__el(href='/login') Đăng Nhập
+            a.nav__el.nav__el--cta(href='/signup') Đăng Ký
+- if (user.role === 'admin')
+  .container-xl
+    .table-responsive
+      .table-wrapper
+        .table-title
+          .row
+            .col-sm-6
+              h2
+                | Quản lý 
+                b Người dùng
+            .col-sm-6
+              a.btn.btn-addNewUser(href='#addEmployeeModal' data-toggle='modal')
+                i.material-icons &#xE147;
+                span Thêm tài khoản mới
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th
+                span.custom-checkbox
+                  input#selectAll(type='checkbox')
+                  label(for='selectAll')
+              th Tên
+              th Email
+              th Ảnh
+              th Quyền
+              th Actions
+          tbody
+            each user in users
+              tr
+                td
+                  span.custom-checkbox
+                    input#checkbox1(type='checkbox' name='options[]' value='1')
+                    label(for='checkbox1')
+                td= user.name
+                td= user.email
+                td
+                    img.user-img(src=`/img/users/${user.photo}` alt='' height='60' width='60')
+                td= user.role
+                td
+                  a.edit(href='#editEmployeeModal' data-toggle='modal')
+                    i.material-icons(data-toggle='tooltip' title='Edit') &#xE254;
+                  a.delete(href='#deleteEmployeeModal' data-toggle='modal')
+                    i.material-icons(data-toggle='tooltip' title='Delete') &#xE872;
+        .clearfix
+          ul.pagination
+            li.page-item.disabled
+              a(href='#') Trước
+            li.page-item.active
+              a.page-link(href='#') 1
+            li.page-item
+              a.page-link(href='#') 2
+            li.page-item
+              a.page-link(href='#') 3
+            li.page-item
+              a.page-link(href='#') 4
+            li.page-item
+              a.page-link(href='#') 5
+            li.page-item
+              a.page-link(href='#') Tiếp theo
+  // Edit Modal HTML
+  #addEmployeeModal.modal.fade
+    .modal-dialog
+      .modal-content
+        form
+          .modal-header
+            h4.modal-title Thêm tài khoản
+            button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          .modal-body
+            .form-group
+              label Tên
+              input.form-control(type='text' required='')
+            .form-group
+              label Địa chỉ email
+              input.form-control(type='email' required='')
+            .form-group
+              label Quyền truy cập
+              select#exampleFormControlSelect1.form-control
+                  option user
+                  option guide
+                  option lead-guide
+                  option admin
+            .form-group
+              label Mật khẩu
+              input.form-control(type='password' required='')
+          .modal-footer
+            input.btn.btn-default(type='button' data-dismiss='modal' value='Cancel')
+            input.btn.btn-success(type='submit' value='Add')
+  // Edit Modal HTML
+  #editEmployeeModal.modal.fade
+    .modal-dialog
+      .modal-content
+        form
+          .modal-header
+            h4.modal-title Chỉnh sửa thông tin người dùng
+            button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          .modal-body
+            .form-group
+              label Tên
+              input.form-control(type='text' required='' value=`${user.name}`)
+            .form-group
+              label Email
+              input.form-control(type='email' required='' value=`${user.email}`)
+            .form-group
+              label Quyền truy cập
+                select#exampleFormControlSelect1.form-control
+                  option user
+                  option guide
+                  option lead-guide
+                  option admin
+            .form-group
+              label Mật khẩu
+              input.form-control(type='password' required='' minlength="8" maxlength="20")
+          .modal-footer
+            input.btn.btn-default(type='button' data-dismiss='modal' value='Hủy')
+            input.btn.btn-info(type='submit' value='Lưu')
+  // Delete Modal HTML
+  #deleteEmployeeModal.modal.fade
+    .modal-dialog
+      .modal-content
+        form
+          .modal-header
+            h4.modal-title Xóa tài khoản
+            button.close(type='button' data-dismiss='modal' aria-hidden='true') &times;
+          .modal-body
+            p Bạn có chắc chắn xóa người dùng này không?
+            p.text-warning
+              small Hành động này không thể được hoàn tác.
+          .modal-footer
+            input.btn.btn-default(type='button' data-dismiss='modal' value='Hủy')
+            input.btn.btn-danger(type='submit' value='Xóa')
+- else
+    main.main
+    .error
+      .error__title
+        h2.heading-secondary.heading-secondary--error 404
+        h2.error__emoji Không tìm thấy trang! 😢 🤯
+      .error__msg= msg
+footer.footer
+    .footer__logo
+        img(src='/img/logo-green.png' alt='Tour Booking')
+    ul.footer__nav
+        li: a(href='#') Về chúng tôi
+        li: a(href='#') Tải apps
+        li: a(href='#') Trở thành hướng dẫn viên của chúng tôi
+        li: a(href='#') Cơ hội nghề nghiệp
+        li: a(href='#') Liên hệ
+    p.footer__copyright &copy; Bản quyền thuộc về Trần Duy Khánh 18CN2. Vui lòng chỉ sử dụng dự án này cho các mục đích cá nhân!
