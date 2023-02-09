@@ -1,6 +1,7 @@
 const Tour = require('../models/tourModel');
 const User = require('../models/userModel');
 const Booking = require('../models/bookingModel');
+const Review = require('../models/reviewModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 
@@ -22,6 +23,15 @@ const getUserManagement = catchAsync(async (req, res, next) => {
   res.status(200).render('usermanagement', {
     title: 'Quản lý người dùng',
     users
+  });
+});
+
+const getReviewManagement = catchAsync(async (req, res, next) => {
+  const reviews = await Review.find();
+
+  res.status(200).render('reviewmanagement', {
+    title: 'Quản lý đánh giá của người dùng',
+    reviews
   });
 });
 
@@ -103,5 +113,6 @@ module.exports = {
   getAccount,
   getMyTours,
   updateUserData,
-  getUserManagement
+  getUserManagement,
+  getReviewManagement
 };

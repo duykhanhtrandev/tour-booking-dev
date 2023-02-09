@@ -22,6 +22,11 @@ router.get(
   authController.protect,
   viewsController.getUserManagement
 );
+router.get(
+  '/review-management',
+  authController.protect,
+  viewsController.getReviewManagement
+);
 
 router.post(
   '/submit-user-data',

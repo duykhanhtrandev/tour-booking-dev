@@ -36,7 +36,6 @@ head
     }
     });
     });
-
 header.header
     nav.nav.nav--tours
         a.nav__el(href='/') Trang chủ
@@ -81,7 +80,8 @@ header.header
               th Tên
               th Email
               th Ảnh
-              th Quyền
+              th Quyền truy cập
+              th Trạng thái
               th Actions
           tbody
             each user in users
@@ -95,10 +95,14 @@ header.header
                 td
                     img.user-img(src=`/img/users/${user.photo}` alt='' height='60' width='60')
                 td= user.role
+                - if (user.active === true)
+                  td Active
+                - else
+                  td Inactive
                 td
                   a.edit(href='#editEmployeeModal' data-toggle='modal')
                     i.material-icons(data-toggle='tooltip' title='Edit') &#xE254;
-                  a.delete(href='#deleteEmployeeModal' data-toggle='modal')
+                  a.delete(data-id=`${user._id}` href='#deleteEmployeeModal' data-toggle='modal')
                     i.material-icons(data-toggle='tooltip' title='Delete') &#xE872;
         .clearfix
           ul.pagination
