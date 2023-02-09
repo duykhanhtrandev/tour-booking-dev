@@ -18,6 +18,11 @@ router.get('/signup', authController.isLoggedIn, viewsController.getSignUpForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get('/my-tours', authController.protect, viewsController.getMyTours);
 router.get(
+  '/my-invoices',
+  authController.protect,
+  viewsController.getMyInvoices
+);
+router.get(
   '/user-management',
   authController.protect,
   viewsController.getUserManagement

@@ -14,8 +14,8 @@ block content
                 ul.side-nav
                     +navItem('#', 'Cài đặt', 'settings', true)
                     +navItem('/my-tours', 'Đơn hàng', 'briefcase')
+                    +navItem('/my-invoices', 'Hóa đơn', 'credit-card')
                     +navItem('#', 'Đánh giá', 'star')
-                    +navItem('#', 'Thanh toán', 'credit-card')
 
                 - if (user.role === 'admin')
                     .admin-nav
