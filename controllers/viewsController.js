@@ -101,6 +101,21 @@ const getMyInvoices = catchAsync(async (req, res, next) => {
   });
 });
 
+const getMyReviews = catchAsync(async (req, res, next) => {
+  // 1) Find all bookings
+  const reviews = await Review.find({ user: req.user.id });
+
+  // 2) Find tours with the returned IDs
+  const tourIDs = reviews.map(el => el.tour.id);
+  const tours = await Tour.find({ _id: { $in: tourIDs } });
+
+  res.status(200).render('myreviews', {
+    title: 'Đánh giá của tôi',
+    tours,
+    reviews
+  });
+});
+
 const updateUserData = catchAsync(async (req, res, next) => {
   const updatedUser = await User.findByIdAndUpdate(
     req.user.id,
@@ -130,5 +145,6 @@ module.exports = {
   updateUserData,
   getUserManagement,
   getReviewManagement,
-  getMyInvoices
+  getMyInvoices,
+  getMyReviews
 };
