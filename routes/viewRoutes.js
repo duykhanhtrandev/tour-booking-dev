@@ -18,6 +18,7 @@ router.get('/signup', authController.isLoggedIn, viewsController.getSignUpForm);
 router.get('/me', authController.protect, viewsController.getAccount);
 router.get('/my-tours', authController.protect, viewsController.getMyTours);
 router.get('/my-reviews', authController.protect, viewsController.getMyReviews);
+router.get('/billing', authController.protect, viewsController.getBilling);
 router.get(
   '/my-invoices',
   authController.protect,

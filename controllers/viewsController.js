@@ -101,6 +101,15 @@ const getMyInvoices = catchAsync(async (req, res, next) => {
   });
 });
 
+const getBilling = catchAsync(async (req, res, next) => {
+  const bookings = await Booking.find();
+
+  res.status(200).render('billing', {
+    title: 'Quản lý hóa đơn',
+    bookings
+  });
+});
+
 const getMyReviews = catchAsync(async (req, res, next) => {
   // 1) Find all bookings
   const reviews = await Review.find({ user: req.user.id });
@@ -146,5 +155,6 @@ module.exports = {
   getUserManagement,
   getReviewManagement,
   getMyInvoices,
-  getMyReviews
+  getMyReviews,
+  getBilling
 };
