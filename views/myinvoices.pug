@@ -71,7 +71,7 @@ each booking in bookings
                                     p - Hà Nội, Việt Nam
                         .col-xs-6.col-sm-6.col-md-6
                             .receipt-left
-                                b= `Mã hóa đơn # ${(booking._id)}`
+                                b= `Mã hóa đơn #${(booking._id).toString().slice(-10)}`
                 div
                     table.table.table-bordered
                         thead
