@@ -30,6 +30,11 @@ router.get(
   viewsController.getUserManagement
 );
 router.get(
+  '/tour-management',
+  authController.protect,
+  viewsController.getTourManagement
+);
+router.get(
   '/review-management',
   authController.protect,
   viewsController.getReviewManagement

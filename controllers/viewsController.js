@@ -26,6 +26,15 @@ const getUserManagement = catchAsync(async (req, res, next) => {
   });
 });
 
+const getTourManagement = catchAsync(async (req, res, next) => {
+  const tours = await Tour.find();
+
+  res.status(200).render('tourmanagement', {
+    title: 'Quản lý người dùng',
+    tours
+  });
+});
+
 const getReviewManagement = catchAsync(async (req, res, next) => {
   const reviews = await Review.find();
 
@@ -156,5 +165,6 @@ module.exports = {
   getReviewManagement,
   getMyInvoices,
   getMyReviews,
-  getBilling
+  getBilling,
+  getTourManagement
 };

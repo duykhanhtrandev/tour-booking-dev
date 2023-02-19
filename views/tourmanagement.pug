@@ -1,0 +1,128 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  title Quản lý người dùng
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto|Varela+Round')
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
+  link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
+  link(rel="stylesheet", href="/css/style.css")
+  link(rel="stylesheet", href="/css/custom.css")
+  script(src='https://code.jquery.com/jquery-3.5.1.min.js')
+  script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js')
+  script.
+    $(document).ready(function(){
+    // Activate tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+    // Select/Deselect checkboxes
+    var checkbox = $('table tbody input[type="checkbox"]');
+    $("#selectAll").click(function(){
+    if(this.checked){
+    checkbox.each(function(){
+    this.checked = true;
+    });
+    } else{
+    checkbox.each(function(){
+    this.checked = false;
+    });
+    }
+    });
+    checkbox.click(function(){
+    if(!this.checked){
+    $("#selectAll").prop("checked", false);
+    }
+    });
+    });
+header.header
+    nav.nav.nav--tours
+        a.nav__el(href='/') Trang chủ
+    .header__logo
+        img(src='/img/logo-white.png' alt='Tour Booking logo')
+    nav.nav.nav--user
+        if user
+            a.nav__el(href='/me')
+                if user.photo
+                    img.nav__user-img(src=`/img/users/${user.photo}` alt=`Ảnh của ${user.name}`)
+                else
+                    - const fNameInitial = user.name[0]
+                    - const lNameInitial = user.name.split(' ')[user.name.split(' ').length-1][0]
+                    .avatar-circle 
+                        span.initials= `${fNameInitial}${lNameInitial}`    
+                span= user.name.split(' ').slice(-2).join(' ')
+            a.nav__el.nav__el--logout Đăng xuất
+        else
+            a.nav__el(href='/login') Đăng Nhập
+            a.nav__el.nav__el--cta(href='/signup') Đăng Ký
+- if (user.role === 'admin')
+  .container-xl
+    .table-responsive
+      .table-wrapper
+        .table-title
+          .row
+            .col-sm-6
+              h2
+                | Quản lý 
+                b Chuyến Tham Quan
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th
+                span.custom-checkbox
+                  input#selectAll(type='checkbox')
+                  label(for='selectAll')
+              th Ảnh
+              th Tên chuyến đi
+              th Điểm xuất phát
+              th Số điểm dừng chân
+              th Tổng thời gian
+              th Giới hạn
+              th Đánh giá
+              th Hướng đẫn Viên
+              th Thời gian xuất phát
+              th Giá
+              th Actions
+          tbody
+            each tour in tours
+              tr
+                td
+                  span.custom-checkbox
+                    input#checkbox1(type='checkbox' name='options[]' value='1')
+                    label(for='checkbox1')
+                td
+                    img.user-img(src=`/img/tours/${tour.imageCover}` alt='' height='60' width='60')
+                td
+                    a(href=`/tour/${tour.slug}` target='_blank' title=`${tour.name}`)= tour.name
+                td= tour.startLocation.description
+                td= `${tour.locations.length} điểm`
+                td= `${tour.duration} ngày`
+                td= `${tour.maxGroupSize} người`
+                td= tour.ratingsAverage
+                td
+                    img.user-img(src=`/img/users/${tour.guides[1].photo}` alt='' height='60' width='60')
+                    div= tour.guides[1].name
+                td= `Ngày ${tour.startDates[0].toLocaleString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' })}`
+                td= `${(tour.price.toLocaleString('vi', { style : 'currency', currency : 'VND' }))}`
+                td
+                  a.edit(href='#editEmployeeModal' data-toggle='modal')
+                    i.material-icons(data-toggle='tooltip' title='Edit') &#xE254;
+                  a.delete(data-id=`${tour._id}` href='#deleteEmployeeModal' data-toggle='modal')
+                    i.material-icons(data-toggle='tooltip' title='Delete') &#xE872;
+        .clearfix
+          ul.pagination
+            li.page-item.disabled
+              a(href='#') Trước
+            li.page-item.active
+              a.page-link(href='#') 1
+            li.page-item
+              a.page-link(href='#') 2
+            li.page-item
+              a.page-link(href='#') 3
+            li.page-item
+              a.page-link(href='#') 4
+            li.page-item
+              a.page-link(href='#') 5
+            li.page-item
+              a.page-link(href='#') Tiếp theo
