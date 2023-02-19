@@ -8,9 +8,10 @@ head
   link(rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons')
   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css')
   link(rel='stylesheet' href='https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css' integrity='sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==' crossorigin='anonymous' referrerpolicy='no-referrer')
   link(rel='shortcut icon' type='image/png' href='/img/favicon.png')
   link(rel="stylesheet", href="/css/style.css")
-  link(rel="stylesheet", href="/css/invoice.css")
+  link(rel="stylesheet", href="/css/custom.css")
   script(src='https://code.jquery.com/jquery-3.5.1.min.js')
   script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js')
   script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
@@ -36,61 +37,76 @@ header.header
         else
             a.nav__el(href='/login') Đăng Nhập
             a.nav__el.nav__el--cta(href='/signup') Đăng Ký
-
 - if (user.role === 'admin')
-    each booking in bookings
-        .col-md-12
-            .row
-                .receipt-main.col-xs-10.col-sm-10.col-md-6.col-xs-offset-1.col-sm-offset-1.col-md-offset-3
+    .container-xl
+        .table-responsive
+            .table-wrapper
+                .table-title
                     .row
-                        .receipt-header
-                            .col-xs-6.col-sm-6.col-md-6
-                                .receipt-left
-                                    img.img-responsive(alt='iamgurdeeposahan' src=`/img/users/${user.photo}` style='width: 71px; border-radius: 43px;')
-                            .col-xs-6.col-sm-6.col-md-6.text-right
-                                .receipt-right
-                                    h5 TOUR BOOKING
-                                    p
-                                        | +84 337.539.063
-                                        i.fa.fa-phone
-                                    p
-                                        | khanhduytran.dev@gmail.com 
-                                        i.fa.fa-envelope-o
-                                    p
-                                        | HANOI ARCHITECTURAL UNIVERSITY 
-                                        i.fa.fa-location-arrow
-                    .row
-                        .receipt-header.receipt-header-mid
-                            .col-xs-6.col-sm-6.col-md-6.text-left
-                                .receipt-right
-                                    h5= booking.user.name
-                                    p
-                                        b Email:
-                                        p= `- ${booking.user.email}`
-                                    p
-                                        b Address :
-                                        p - Hà Nội, Việt Nam
-                            .col-xs-6.col-sm-6.col-md-6
-                                .receipt-left
-                                    b= `Mã hóa đơn # ${(booking._id)}`
-                    div
-                        table.table.table-bordered
-                            thead
-                                tr
-                                    th Tên chuyến tham quan
-                                    th Đã thanh toán
-                            tbody
-                                    tr
-                                        td.col-md-9= booking.tour.name
-                                        td.col-md-3= `${(booking.price.toLocaleString('vi', { style : 'currency', currency : 'VND' }))}`
-                        .row
-                            .receipt-header.receipt-header-mid.receipt-footer
-                                .col-xs-8.col-sm-8.col-md-8.text-left
-                                    .receipt-right
-                                    p
-                                        b Thanh toán:
-                                        p= `Ngày ${booking.createdAt.toLocaleString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' })}`
-                                    h5(style='color: rgb(140, 140, 140);') Cảm ơn vì đã sử dụng sản phẩm của chúng tôi!
-                                .col-xs-4.col-sm-4.col-md-4
-                                    .receipt-left
-                                        img(src='/img/logo-green.png' alt='Tour Booking')
+                        .col-sm-6
+                            h2
+                                | Quản lý 
+                                b Thanh Toán
+                table.table.table-striped.table-hover
+                    thead
+                        tr
+                            th Người dùng
+                            th Tài khoản
+                            th Đơn hàng
+                            th Mã đơn hàng
+                            th Số tiền
+                            th Trạng Thái
+                            th Ngày
+                            //- th Actions
+                    tbody
+                        each booking in bookings
+                            tr
+                                td
+                                    img.user-img(src=`/img/users/${booking.user.photo}` alt='' height='60' width='60')
+                                td= booking.user.email
+                                td= booking.tour.name
+                                td= (booking._id).toString().slice(-10)
+                                td= `${(booking.price.toLocaleString('vi', { style : 'currency', currency : 'VND' }))}`
+                                - if (booking.paid === true)
+                                    td Đã thanh toán
+                                - else
+                                    td Chưa thanh toán
+                                td= `Ngày ${booking.createdAt.toLocaleString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' })}`
+                                //- td
+                                //-     a.edit(href='#editEmployeeModal' data-toggle='modal')
+                                //-         i.material-icons(data-toggle='tooltip' title='Edit') &#xE254;
+                                //-     a.delete(data-id=`${booking.user._id}` href='#deleteEmployeeModal' data-toggle='modal')
+                                //-         i.material-icons(data-toggle='tooltip' title='Delete') &#xE872;
+                .clearfix
+                    ul.pagination
+                        li.page-item.disabled
+                            a(href='#') Trước
+                        li.page-item.active
+                            a.page-link(href='#') 1
+                        li.page-item
+                            a.page-link(href='#') 2
+                        li.page-item
+                            a.page-link(href='#') 3
+                        li.page-item
+                            a.page-link(href='#') 4
+                        li.page-item
+                            a.page-link(href='#') 5
+                        li.page-item
+                            a.page-link(href='#') Tiếp theo
+- else
+    main.main
+    .error
+      .error__title
+        h2.heading-secondary.heading-secondary--error 404
+        h2.error__emoji Không tìm thấy trang! 😢 🤯
+      .error__msg= msg
+footer.footer
+    .footer__logo
+        img(src='/img/logo-green.png' alt='Tour Booking')
+    ul.footer__nav
+        li: a(href='#') Về chúng tôi
+        li: a(href='#') Tải apps
+        li: a(href='#') Trở thành hướng dẫn viên của chúng tôi
+        li: a(href='#') Cơ hội nghề nghiệp
+        li: a(href='#') Liên hệ
+    p.footer__copyright &copy; Bản quyền thuộc về Trần Duy Khánh 18CN2. Vui lòng chỉ sử dụng dự án này cho các mục đích cá nhân!     

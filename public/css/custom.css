@@ -241,3 +241,7 @@ table.table .avatar {
 .close {
   font-size: 20px;
 }
+
+.container-xl {
+  max-width: 100%;
+}
