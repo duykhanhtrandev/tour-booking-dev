@@ -104,7 +104,7 @@ header.header
                     img.user-img(src=`/img/users/${tour.guides[1].photo}` alt='' height='60' width='60')
                     div= tour.guides[1].name
                 td= `Ngày ${tour.startDates[0].toLocaleString('vi-VN', { day: 'numeric', month: 'long', year: 'numeric' })}`
-                td= `${(tour.price.toLocaleString('vi', { style : 'currency', currency : 'VND' }))}`
+                td= `${(tour.price.toLocaleString('vi', { style : 'currency', currency : 'VND' }))}/ người`
                 td
                   a.edit(href='#editEmployeeModal' data-toggle='modal')
                     i.material-icons(data-toggle='tooltip' title='Edit') &#xE254;
